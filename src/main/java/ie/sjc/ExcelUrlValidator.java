@@ -20,7 +20,7 @@ public class ExcelUrlValidator {
                     //setCellColor(wb, cell, IndexedColors.RED);
                 } else {
                     String url = cell.getRichStringCellValue().getString();
-                    if (isUrlExists(url)) {
+                    if (CheckUrlConnection.isUrlExists(url)) {
                         setCellColor(wb, cell, IndexedColors.GREEN);
                     } else {
                         setCellColor(wb, cell, IndexedColors.RED);
@@ -33,17 +33,6 @@ public class ExcelUrlValidator {
             }
         }
 
-    }
-
-    public static boolean isUrlExists(String urlString) throws IOException {
-        URL url = new URL(urlString);
-        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-        httpURLConnection.setRequestMethod("GET");
-        httpURLConnection.connect();
-        //OutputStream outputStream = httpURLConnection.getOutputStream();
-        int code = httpURLConnection.getResponseCode();
-        System.out.println("code = " + code);
-        return (code == 200) ? true : false;
     }
 
     public static void setCellColor(Workbook wb, Cell cell, IndexedColors colours) {
