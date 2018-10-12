@@ -1,4 +1,4 @@
-package ie.sjc;
+package ie.sjc.poi.poi.mojo;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.

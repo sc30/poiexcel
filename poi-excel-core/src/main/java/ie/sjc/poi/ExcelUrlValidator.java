@@ -1,10 +1,8 @@
-package ie.sjc;
+package ie.sjc.poi;
 
 import org.apache.poi.ss.usermodel.*;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class ExcelUrlValidator {
     public static void main(String[] args) throws Exception {

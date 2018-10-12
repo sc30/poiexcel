@@ -2,9 +2,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>ie.sjc</groupId>
-    <artifactId>poi-excel</artifactId>
-    <packaging>maven-plugin</packaging>
+    <artifactId>poi-excel-parent</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>poi-excel-core</module>
+        <module>poi-excel-gui</module>
+        <module>poi-excel-mojo</module>
+    </modules>
     <name>poi-excel Maven Mojo</name>
     <url>http://maven.apache.org</url>
     <dependencies>
@@ -28,6 +33,11 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.11.3</version>
         </dependency>
     </dependencies>
 </project>
