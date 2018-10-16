@@ -6,9 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="poiexcelcore" />
-        <module name="poiexcelgui" />
-        <module name="poiexcelmojo" />
+        <module name="poi-excel-core" />
+        <module name="poi-excel-gui" />
+        <module name="poi-excel-mojo" />
       </profile>
     </annotationProcessing>
   </component>

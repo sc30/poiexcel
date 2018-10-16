@@ -1,15 +1,13 @@
 package ie.sjc.poi;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class CheckUrlConnection {
     public static void main(String[] args) throws Exception {
         boolean canBeConnected = isUrlExists("https://www.google.com");
-        System.out.println("");
+        System.out.println(canBeConnected);
     }
 
     public static boolean isUrlExists(String urlString) throws IOException {
@@ -20,15 +18,8 @@ public class CheckUrlConnection {
         httpURLConnection.connect();
         int code = httpURLConnection.getResponseCode();
 
-//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-//        String inputLine;
-//        while ((inputLine = bufferedReader.readLine()) != null) {
-//            System.out.println(inputLine);
-//        }
-//        bufferedReader.close();
-
         httpURLConnection.disconnect();
-        System.out.println("code = " + code);
+        System.out.println("网站返回HTTP请求代码为： " + code + "。如果为200说明链接正常。");
         return (code == HttpURLConnection.HTTP_OK) ? true : false;
     }
 }

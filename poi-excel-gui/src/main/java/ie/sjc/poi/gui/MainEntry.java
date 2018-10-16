@@ -23,8 +23,8 @@ public class MainEntry extends JPanel {
     }
 
     private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Url in excel processor");
-        frame.setSize(800, 500);
+        JFrame frame = new JFrame("Excel处理器，制作 by QQ:79836305有相关需求请联系为您制作");
+        frame.setSize(700, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(new MainEntry());
         frame.setVisible(true);
@@ -32,37 +32,46 @@ public class MainEntry extends JPanel {
 
     public MainEntry() {
         setLayout(null);
-        final JLabel excelLocationLabel = new JLabel("excel location:");
-        excelLocationLabel.setBounds(10,20,160,25);
+        final JLabel excelLocationLabel = new JLabel("excel文件位置:");
+        excelLocationLabel.setBounds(10,20,260,25);
         add(excelLocationLabel);
 
         final JTextField excelLocationField = new JTextField(20);
-        excelLocationField.setBounds(100,20,165,25);
+        excelLocationField.setBounds(300,20,350,25);
         add(excelLocationField);
 
-        final JLabel columnLabel = new JLabel("Column:");
-        columnLabel.setBounds(10,50,160,25);
+        final JLabel columnLabel = new JLabel("Excel包含网络地址的列，仅支持A-Z列:");
+        columnLabel.setBounds(10,50,260,25);
         add(columnLabel);
 
         final JComboBox columnComboBox = new JComboBox(columns);
-        columnComboBox.setBounds(100,50,165,25);
+        columnComboBox.setBounds(300,50,350,25);
         add(columnComboBox);
 
-        JButton processButton = new JButton("process");
-        processButton.setBounds(10, 80, 80, 25);
+        JButton processButton = new JButton("开始处理");
+        processButton.setBounds(10, 80, 100, 25);
         add(processButton);
 
-        JButton selectExcelButton = new JButton("select excel");
-        selectExcelButton.setBounds(120, 80, 100, 25);
+        JButton selectExcelButton = new JButton("选择excel文件");
+        selectExcelButton.setBounds(140, 80, 140, 25);
         add(selectExcelButton);
 
+        JTextArea textArea = new JTextArea(2, 40);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        textArea.setEditable(false);
+        textArea.append("1. 此版本仅支持处理单个xlsx文件，如果部位xlsx文件请先转换为xlsx格式 \n" +
+                "2. 此版本仅能查找k3与sooxie网站的商品是否可以下架，如有需求，后续版本可以添加 \n" +
+                "3. 请确保xlsx文件的最后一列为网页链接，不然程序会出错。");
+        scrollPane.setBounds(50, 120, 600, 100);
+        add(scrollPane);
+
         chooser = new JFileChooser();
-        chooser.setDialogTitle("select excel file");
+        chooser.setDialogTitle("请选择xlsx结尾的文件");
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.setFileFilter(new ExtensionFileFilter("xlsx"));
-        chooser.setApproveButtonText("approve button text");
+        chooser.setApproveButtonText("确定选择excel文件");
         chooser.setApproveButtonMnemonic('e');
-        chooser.setApproveButtonToolTipText("approve button tool tip");
+        chooser.setApproveButtonToolTipText("确定选择excel文件");
 
         selectExcelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -87,7 +96,8 @@ public class MainEntry extends JPanel {
                 String excelLocation = excelLocationField.getText();
                 int col = columnValue - 65;
                 try {
-                    ExcelUrlValidator.check(excelLocation, col);
+                    String newFileLocation = ExcelUrlValidator.check(excelLocation, col);
+                    JOptionPane.showMessageDialog(null, "处理完成！新文件在\n" + newFileLocation);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
