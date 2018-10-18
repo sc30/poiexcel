@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Not in use, use jsoup to validate http connection
+ * Previously two connection has been opened, one for CheckUrlConnection, the other for JsoupReadWebPage
+ * Now only one connection is used to check url connection and validate if item is in stock or not.
+ */
 public class CheckUrlConnection {
     public static void main(String[] args) throws Exception {
         boolean canBeConnected = isUrlExists("https://www.google.com");
