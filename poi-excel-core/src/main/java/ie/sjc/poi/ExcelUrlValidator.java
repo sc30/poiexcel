@@ -24,6 +24,16 @@ public class ExcelUrlValidator {
     public String check(String fileLocation, int column) throws Exception {
         JsoupReadWebPage jsoupReadWebPage = new JsoupReadWebPage(JsoupReadWebPage.k3_hardcoded, JsoupReadWebPage.sooxie_hardcoded);
 
+        String outputFile = null;
+        int index = fileLocation.lastIndexOf('.');
+        if (index > 0 && index < fileLocation.length() - 1) {
+            outputFile = fileLocation.substring(0, index + 1);
+        }
+
+        if (outputFile == null) {
+            return "文件不合法，重命名文件名字来解决问题！";
+        }
+
         try (InputStream is = new FileInputStream(fileLocation)) {
             Workbook wb = WorkbookFactory.create(is);
             Sheet sheet = wb.getSheetAt(0);
@@ -61,8 +71,8 @@ public class ExcelUrlValidator {
                 }
             }
 
-            Date date = new Date();
-            String processedFile = fileLocation + date.toString() + ".xlsx";
+
+            String processedFile = outputFile + "处理完成.xlsx";
             try (OutputStream outputStream = new FileOutputStream(processedFile)) {
                 wb.write(outputStream);
             }

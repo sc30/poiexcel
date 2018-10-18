@@ -54,7 +54,7 @@ public class MainEntry extends JPanel {
 
         final JTextField processRowField = new JTextField(20);
         processRowField.setBounds(70,80,50,25);
-        processRowField.setText("20");
+        processRowField.setText("10");
         add(processRowField);
 
         final JLabel restLabel = new JLabel("行，休息时间为秒(s)：");
