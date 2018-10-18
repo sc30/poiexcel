@@ -48,21 +48,39 @@ public class MainEntry extends JPanel {
         columnComboBox.setBounds(300,50,350,25);
         add(columnComboBox);
 
+        final JLabel processRowLabel = new JLabel("每处理:");
+        processRowLabel.setBounds(10,80,50,25);
+        add(processRowLabel);
+
+        final JTextField processRowField = new JTextField(20);
+        processRowField.setBounds(70,80,50,25);
+        processRowField.setText("20");
+        add(processRowField);
+
+        final JLabel restLabel = new JLabel("行，休息时间为秒(s)：");
+        restLabel.setBounds(130,80,150,25);
+        add(restLabel);
+
+        final JTextField waitTimeField = new JTextField(20);
+        waitTimeField.setBounds(290,80,30,25);
+        waitTimeField.setText("3");
+        add(waitTimeField);
+
         JButton processButton = new JButton("开始处理");
-        processButton.setBounds(10, 80, 100, 25);
+        processButton.setBounds(10, 110, 100, 25);
         add(processButton);
 
         JButton selectExcelButton = new JButton("选择excel文件");
-        selectExcelButton.setBounds(140, 80, 140, 25);
+        selectExcelButton.setBounds(140, 110, 140, 25);
         add(selectExcelButton);
 
         JTextArea textArea = new JTextArea(2, 40);
         JScrollPane scrollPane = new JScrollPane(textArea);
         textArea.setEditable(false);
-        textArea.append("1. 此版本仅支持处理单个xlsx文件，如果部位xlsx文件请先转换为xlsx格式 \n" +
+        textArea.append("1. 此版本仅支持处理单个xlsx文件，如果不为xlsx文件请先转换为xlsx格式 \n" +
                 "2. 此版本仅能查找k3与sooxie网站的商品是否可以下架，如有需求，后续版本可以添加 \n" +
                 "3. 请确保xlsx文件的最后一列为网页链接，不然程序会出错。");
-        scrollPane.setBounds(50, 120, 600, 100);
+        scrollPane.setBounds(50, 140, 600, 100);
         add(scrollPane);
 
         chooser = new JFileChooser();
@@ -95,8 +113,12 @@ public class MainEntry extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String excelLocation = excelLocationField.getText();
                 int col = columnValue - 65;
+
+                int processRow = Integer.parseInt(processRowField.getText());
+                int waitTimeInSeconds = Integer.parseInt(waitTimeField.getText());
+                ExcelUrlValidator excelUrlValidator = new ExcelUrlValidator(processRow, waitTimeInSeconds);
                 try {
-                    String newFileLocation = ExcelUrlValidator.check(excelLocation, col);
+                    String newFileLocation = excelUrlValidator.check(excelLocation, col);
                     JOptionPane.showMessageDialog(null, "处理完成！新文件在\n" + newFileLocation);
                 } catch (Exception e1) {
                     e1.printStackTrace();

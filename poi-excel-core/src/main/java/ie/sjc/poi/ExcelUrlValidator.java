@@ -4,13 +4,24 @@ import org.apache.poi.ss.usermodel.*;
 
 import java.io.*;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class ExcelUrlValidator {
-    public static void main(String[] args) throws Exception {
-        check("/home/sc47/workspace/dev-git/poiexcel/src/main/resources/9.30.xlsx", 4);
+
+    private int processRow;
+    private int restTimeInSeconds;
+
+    public ExcelUrlValidator(int processRow, int restTimeInSeconds) {
+        this.processRow = processRow;
+        this.restTimeInSeconds = restTimeInSeconds;
     }
 
-    public static String check(String fileLocation, int column) throws Exception {
+    public static void main(String[] args) throws Exception {
+        ExcelUrlValidator excelUrlValidator = new ExcelUrlValidator(25, 2);
+        excelUrlValidator.check("/home/sc47/workspace/dev-git/poiexcel/src/main/resources/9.30.xlsx", 4);
+    }
+
+    public String check(String fileLocation, int column) throws Exception {
         JsoupReadWebPage jsoupReadWebPage = new JsoupReadWebPage(JsoupReadWebPage.k3_hardcoded, JsoupReadWebPage.sooxie_hardcoded);
 
         try (InputStream is = new FileInputStream(fileLocation)) {
@@ -23,6 +34,7 @@ public class ExcelUrlValidator {
             System.out.println("最后一行为： " + lastRow);
 
             for (int i = firstRow; i <= lastRow; i ++) {
+
                 System.out.println("---------------------------------");
                 System.out.println("正在处理第" + i + "行");
                 Cell cell = sheet.getRow(i).getCell(column);
@@ -30,9 +42,9 @@ public class ExcelUrlValidator {
                     //setCellColor(wb, cell, IndexedColors.RED);
                 } else {
                     String url = cell.getRichStringCellValue().getString();
-                    if (CheckUrlConnection.isUrlExists(url)) {
+                    if (jsoupReadWebPage.requestGetStatus(url)) {
                         setCellColor(wb, cell, IndexedColors.GREEN);
-                        String itemStatus = jsoupReadWebPage.getStatus(url);
+                        String itemStatus = jsoupReadWebPage.getItemStatus(url);
                         Cell createCell = sheet.getRow(i).createCell(column + 1);
                         createCell.setCellValue(itemStatus);
                     } else {
@@ -41,6 +53,12 @@ public class ExcelUrlValidator {
                 }
                 System.out.println("第" + i + "行处理完毕");
                 System.out.println("---------------------------------");
+
+                if (i % getProcessRow() == 0) {
+                    System.out.println("等待" + getRestTimeInSeconds() + "s让程序更稳定");
+                    TimeUnit.SECONDS.sleep(getRestTimeInSeconds());
+                    System.out.println(getRestTimeInSeconds() + "s等待结束");
+                }
             }
 
             Date date = new Date();
@@ -57,5 +75,21 @@ public class ExcelUrlValidator {
         style.setFillBackgroundColor(colours.getIndex());
         style.setFillPattern(FillPatternType.LEAST_DOTS);
         cell.setCellStyle(style);
+    }
+
+    public int getProcessRow() {
+        return processRow;
+    }
+
+    public void setProcessRow(int processRow) {
+        this.processRow = processRow;
+    }
+
+    public int getRestTimeInSeconds() {
+        return restTimeInSeconds;
+    }
+
+    public void setRestTimeInSeconds(int restTimeInSeconds) {
+        this.restTimeInSeconds = restTimeInSeconds;
     }
 }
