@@ -2,8 +2,10 @@ package ie.sjc.poi;
 
 import org.apache.poi.ss.usermodel.*;
 
-import java.io.*;
-import java.util.Date;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.concurrent.TimeUnit;
 
 public class ExcelUrlValidator {
@@ -40,13 +42,13 @@ public class ExcelUrlValidator {
             int firstRow = sheet.getFirstRowNum();
             int lastRow = sheet.getLastRowNum();
 
-            System.out.println("第一行为：" + firstRow);
-            System.out.println("最后一行为： " + lastRow);
+            System.out.println("第一行为：" + (firstRow + 1));
+            System.out.println("最后一行为： " + (lastRow + 1));
 
             for (int i = firstRow; i <= lastRow; i ++) {
 
                 System.out.println("---------------------------------");
-                System.out.println("正在处理第" + i + "行");
+                System.out.println("正在处理第" + (i + 1) + "行");
                 Cell cell = sheet.getRow(i).getCell(column);
                 if (cell == null) {
                     //setCellColor(wb, cell, IndexedColors.RED);
@@ -61,10 +63,10 @@ public class ExcelUrlValidator {
                         setCellColor(wb, cell, IndexedColors.RED);
                     }
                 }
-                System.out.println("第" + i + "行处理完毕");
+                System.out.println("第" + (i + 1) + "行处理完毕");
                 System.out.println("---------------------------------");
 
-                if (i % getProcessRow() == 0) {
+                if (i % getProcessRow() == 9) {
                     System.out.println("等待" + getRestTimeInSeconds() + "s让程序更稳定");
                     TimeUnit.SECONDS.sleep(getRestTimeInSeconds());
                     System.out.println(getRestTimeInSeconds() + "s等待结束");
@@ -76,6 +78,7 @@ public class ExcelUrlValidator {
             try (OutputStream outputStream = new FileOutputStream(processedFile)) {
                 wb.write(outputStream);
             }
+            System.out.println("处理完成，文件生成在" + processedFile);
             return processedFile;
         }
     }
