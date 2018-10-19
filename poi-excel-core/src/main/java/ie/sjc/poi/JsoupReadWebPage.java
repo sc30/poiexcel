@@ -7,9 +7,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.net.URL;
 
 
 public class JsoupReadWebPage {
+    // TODO: create two fields in the SwingGUI to represent these cssQueries
+    // such that it gives user an option to update cssQueries if websites get updated
     public static final String k3_hardcoded = "div .c_r a.button";
     public static final String sooxie_hardcoded = "div #jb > div.btnbox";
 
@@ -42,7 +45,13 @@ public class JsoupReadWebPage {
         System.out.println(jsoupReadWebPage.getItemStatus("https://xgx.sooxie.com/96919.aspx"));
     }
 
-    public boolean requestGetStatus(String url) throws IOException {
+    public boolean requestGetStatus(String url) {
+        // if url is malformed, or URI has syntax issue when converting url to uri, return false
+        if (!isValidUrl(url)) {
+            System.out.println("链接:" + url + "，其格式不符合规则，请手动检查链接的正确性。跳过处理此链接。");
+            return false;
+        }
+
         Connection jsoupConnection = Jsoup.connect(url);
         jsoupConnection.ignoreHttpErrors(true);
 
@@ -51,7 +60,13 @@ public class JsoupReadWebPage {
         request.method(Connection.Method.GET);
 
         // Execute and get response
-        response = jsoupConnection.execute();
+        try {
+            response = jsoupConnection.execute();
+        } catch (Exception e) {
+            System.out.println("发送请求链接失败，请手动检查此链接：" + url);
+            return false;
+        }
+
         int statusCode = response.statusCode();
         setStatusCode(statusCode);
         System.out.println("网站返回HTTP请求代码为： " + statusCode + "。如果为200说明链接正常。");
@@ -107,5 +122,14 @@ public class JsoupReadWebPage {
         }
         System.out.println("目前仅支持k3和sooxie");
         return "目前仅支持k3和sooxie";
+    }
+
+    private boolean isValidUrl(String url) {
+        try {
+            new URL(url).toURI();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
