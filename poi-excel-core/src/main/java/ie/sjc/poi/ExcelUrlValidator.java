@@ -66,6 +66,8 @@ public class ExcelUrlValidator {
                         createCell.setCellValue(itemStatus);
                     } else {
                         setCellColor(wb, cell, IndexedColors.RED);
+                        Cell errorCell = sheet.getRow(i).createCell(column + 1);
+                        errorCell.setCellValue("网页链接不可用、或者网页服务器自动关闭了链接所以返回了错误的信息到程序中,请手动检测打开链接再次检测！");
                     }
                 }
                 System.out.println("第" + (i + 1) + "行处理完毕");
