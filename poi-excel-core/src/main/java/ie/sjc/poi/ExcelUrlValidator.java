@@ -23,6 +23,13 @@ public class ExcelUrlValidator {
         excelUrlValidator.check("/home/sc47/workspace/dev-git/poiexcel/src/main/resources/9.30.xlsx", 4);
     }
 
+    public static void setCellColor(Workbook wb, Cell cell, IndexedColors colours) {
+        CellStyle style = wb.createCellStyle();
+        style.setFillBackgroundColor(colours.getIndex());
+        style.setFillPattern(FillPatternType.LEAST_DOTS);
+        cell.setCellStyle(style);
+    }
+
     public String check(String fileLocation, int column) throws Exception {
         JsoupReadWebPage jsoupReadWebPage = new JsoupReadWebPage(JsoupReadWebPage.k3_hardcoded, JsoupReadWebPage.sooxie_hardcoded);
 
@@ -45,14 +52,12 @@ public class ExcelUrlValidator {
             System.out.println("第一行为：" + (firstRow + 1));
             System.out.println("最后一行为： " + (lastRow + 1));
 
-            for (int i = firstRow; i <= lastRow; i ++) {
+            for (int i = firstRow; i <= lastRow; i++) {
 
                 System.out.println("---------------------------------");
                 System.out.println("正在处理第" + (i + 1) + "行");
                 Cell cell = sheet.getRow(i).getCell(column);
-                if (cell == null) {
-                    //setCellColor(wb, cell, IndexedColors.RED);
-                } else {
+                if (cell != null) {
                     String url = cell.getRichStringCellValue().getString();
                     if (jsoupReadWebPage.requestGetStatus(url)) {
                         setCellColor(wb, cell, IndexedColors.GREEN);
@@ -81,13 +86,6 @@ public class ExcelUrlValidator {
             System.out.println("处理完成，文件生成在" + processedFile);
             return processedFile;
         }
-    }
-
-    public static void setCellColor(Workbook wb, Cell cell, IndexedColors colours) {
-        CellStyle style = wb.createCellStyle();
-        style.setFillBackgroundColor(colours.getIndex());
-        style.setFillPattern(FillPatternType.LEAST_DOTS);
-        cell.setCellStyle(style);
     }
 
     public int getProcessRow() {

@@ -21,15 +21,6 @@ public class JsoupReadWebPage {
 
     private Connection.Request request;
     private Connection.Response response;
-
-    public int getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
-    }
-
     private int statusCode;
 
     public JsoupReadWebPage(String k3, String sooxie) {
@@ -37,12 +28,20 @@ public class JsoupReadWebPage {
         this.sooxie = sooxie;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         JsoupReadWebPage jsoupReadWebPage = new JsoupReadWebPage(k3_hardcoded, sooxie_hardcoded);
         System.out.println(jsoupReadWebPage.requestGetStatus("http://www.k3.cn/p/eeafeei.html"));
         System.out.println(jsoupReadWebPage.getItemStatus("http://www.k3.cn/p/eeafeei.html"));
         System.out.println(jsoupReadWebPage.requestGetStatus("https://xgx.sooxie.com/96919.aspx"));
         System.out.println(jsoupReadWebPage.getItemStatus("https://xgx.sooxie.com/96919.aspx"));
+    }
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
     }
 
     public boolean requestGetStatus(String url) {
@@ -70,7 +69,7 @@ public class JsoupReadWebPage {
         int statusCode = response.statusCode();
         setStatusCode(statusCode);
         System.out.println("网站返回HTTP请求代码为： " + statusCode + "。如果为200说明链接正常。");
-        return (statusCode == 200) ? true : false;
+        return statusCode == 200;
     }
 
     public String getItemStatus(String url) {

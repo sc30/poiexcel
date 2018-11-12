@@ -12,57 +12,41 @@ public class MainEntry extends JPanel {
 
     char columnValue = 'A';
     String[] columns = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
-        "O","P","Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
-    }
-
-    private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Excel处理器，制作 by QQ:79836305有相关需求请联系为您制作");
-        frame.setSize(700, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new MainEntry());
-        frame.setVisible(true);
-    }
+            "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
     public MainEntry() {
         setLayout(null);
         final JLabel excelLocationLabel = new JLabel("Excel文件位置:");
-        excelLocationLabel.setBounds(10,20,260,25);
+        excelLocationLabel.setBounds(10, 20, 260, 25);
         add(excelLocationLabel);
 
         final JTextField excelLocationField = new JTextField(20);
-        excelLocationField.setBounds(300,20,350,25);
+        excelLocationField.setBounds(300, 20, 350, 25);
         add(excelLocationField);
 
         final JLabel columnLabel = new JLabel("Excel包含网络地址的列，仅支持A-Z列:");
-        columnLabel.setBounds(10,50,260,25);
+        columnLabel.setBounds(10, 50, 260, 25);
         add(columnLabel);
 
-        final JComboBox columnComboBox = new JComboBox(columns);
-        columnComboBox.setBounds(300,50,350,25);
+        final JComboBox<String> columnComboBox = new JComboBox<>(columns);
+        columnComboBox.setBounds(300, 50, 350, 25);
         add(columnComboBox);
 
         final JLabel processRowLabel = new JLabel("每处理:");
-        processRowLabel.setBounds(10,80,50,25);
+        processRowLabel.setBounds(10, 80, 50, 25);
         add(processRowLabel);
 
         final JTextField processRowField = new JTextField(20);
-        processRowField.setBounds(70,80,50,25);
+        processRowField.setBounds(70, 80, 50, 25);
         processRowField.setText("10");
         add(processRowField);
 
         final JLabel restLabel = new JLabel("行，休息时间为秒(s)：");
-        restLabel.setBounds(130,80,150,25);
+        restLabel.setBounds(130, 80, 150, 25);
         add(restLabel);
 
         final JTextField waitTimeField = new JTextField(20);
-        waitTimeField.setBounds(290,80,30,25);
+        waitTimeField.setBounds(290, 80, 30, 25);
         waitTimeField.setText("3");
         add(waitTimeField);
 
@@ -105,7 +89,7 @@ public class MainEntry extends JPanel {
         columnComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JComboBox cb = (JComboBox)e.getSource();
+                JComboBox cb = (JComboBox) e.getSource();
                 columnValue = String.class.cast(cb.getSelectedItem()).charAt(0);
             }
         });
@@ -126,6 +110,22 @@ public class MainEntry extends JPanel {
                 }
             }
         });
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+    }
+
+    private static void createAndShowGUI() {
+        JFrame frame = new JFrame("Excel处理器，制作 by QQ:79836305有相关需求请联系为您制作");
+        frame.setSize(700, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(new MainEntry());
+        frame.setVisible(true);
     }
 
 }
