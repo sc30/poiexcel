@@ -116,8 +116,8 @@ public class JsoupReadWebPage {
                     return statusStr;
                 }
             }
-            System.out.println("sooxie.com: 无法识别是否下架，请手动检测!");
-            return "sooxie.com: 无法识别是否下架，请手动检测!";
+            System.out.println("sooxie.com: 无法识别是否下架，请手动检测![很大一部分情况为网页链接已失效]");
+            return "sooxie.com: 无法识别是否下架，请手动检测![很大一部分情况为网页链接已失效]";
         }
         System.out.println("目前仅支持k3和sooxie");
         return "目前仅支持k3和sooxie";

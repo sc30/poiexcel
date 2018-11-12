@@ -10,7 +10,7 @@ public class MainEntry extends JPanel {
 
     JFileChooser chooser;
 
-    char columnValue = 'A';
+    char columnValue = 'E';
     String[] columns = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
             "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
@@ -30,6 +30,7 @@ public class MainEntry extends JPanel {
 
         final JComboBox<String> columnComboBox = new JComboBox<>(columns);
         columnComboBox.setBounds(300, 50, 350, 25);
+        columnComboBox.setSelectedItem("E");
         add(columnComboBox);
 
         final JLabel processRowLabel = new JLabel("每处理:");
@@ -121,7 +122,7 @@ public class MainEntry extends JPanel {
     }
 
     private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Excel处理器，制作 by QQ:79836305有相关需求请联系为您制作");
+        JFrame frame = new JFrame("Excel处理器，12/Nov/2018版本，制作 by QQ:79836305有相关需求请联系为您制作");
         frame.setSize(700, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(new MainEntry());
