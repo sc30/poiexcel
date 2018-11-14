@@ -59,15 +59,24 @@ public class ExcelUrlValidator {
                 Cell cell = sheet.getRow(i).getCell(column);
                 if (cell != null) {
                     String url = cell.getRichStringCellValue().getString();
-                    if (jsoupReadWebPage.requestGetStatus(url)) {
-                        setCellColor(wb, cell, IndexedColors.GREEN);
+                    if (url.contains("k3.cn") || url.contains("sooxie.com")) {
+                        jsoupReadWebPage.requestGetStatus(url);
                         String itemStatus = jsoupReadWebPage.getItemStatus(url);
+                        if (itemStatus.equals("链接失效")) {
+                            setCellColor(wb, cell, IndexedColors.RED);
+                        } else {
+                            setCellColor(wb, cell, IndexedColors.GREEN);
+                        }
+                        Cell createCell = sheet.getRow(i).createCell(column + 1);
+                        createCell.setCellValue(itemStatus);
+                    } else if (jsoupReadWebPage.requestGetStatus(url)) {
+                        String itemStatus = jsoupReadWebPage.getItemStatus(url);
+
+                        setCellColor(wb, cell, IndexedColors.GREEN);
                         Cell createCell = sheet.getRow(i).createCell(column + 1);
                         createCell.setCellValue(itemStatus);
                     } else {
                         setCellColor(wb, cell, IndexedColors.RED);
-                        Cell errorCell = sheet.getRow(i).createCell(column + 1);
-                        errorCell.setCellValue("网页链接不可用、或者网页服务器自动关闭了链接所以返回了错误的信息到程序中,请手动检测打开链接再次检测！");
                     }
                 }
                 System.out.println("第" + (i + 1) + "行处理完毕");
