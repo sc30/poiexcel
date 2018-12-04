@@ -12,8 +12,10 @@ import java.net.URL;
 public class JsoupReadWebPage {
     // TODO: create two fields in the SwingGUI to represent these cssQueries
     // such that it gives user an option to update cssQueries if websites get updated
-    public static final String k3_hardcoded = "div .c_r a.button";
-    public static final String k3_hardcoded_active = "div .c_r > p.bot > span.platform";
+    //public static final String k3_hardcoded = "div .c_r a.button";
+    public static final String k3_hardcoded = "div .upload_time > a.button";
+    //public static final String k3_hardcoded_active = "div .c_r > p.bot > span.platform";
+    public static final String k3_hardcoded_active = "div .operation_box > div.platform";
     public static final String sooxie_hardcoded = "div #jb > div.btnbox";
 
     private String k3;
