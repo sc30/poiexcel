@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static org.apache.poi.common.usermodel.HyperlinkType.URL;
+
 public class HttpRedirectExample {
 
     public static void main(String[] args) {

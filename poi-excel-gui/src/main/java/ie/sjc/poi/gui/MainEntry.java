@@ -63,7 +63,7 @@ public class MainEntry extends JPanel {
         JScrollPane scrollPane = new JScrollPane(textArea);
         textArea.setEditable(false);
         textArea.append("1. 此版本仅支持处理单个xlsx文件，如果不为xlsx文件请先转换为xlsx格式。 \n" +
-                "2. 此版本仅能查找k3与sooxie网站的商品是否可以下架，如有需求，后续版本可以添加。 \n" +
+                "2. 此版本仅能查找k3,sooxie,17zwd,bao66,3e3e,2tong网站的商品是否可以下架，如有需求，后续版本可以添加。 \n" +
                 "3. 请确保xlsx文件的最后一列为网页链接，不然程序会出错。\n" +
                 "4. 已有[文件前缀].处理完成.xlsx文件的话，再次处理此xlsx文件会更新已经存在的处理完成.xlsx。");
         scrollPane.setBounds(50, 140, 600, 100);
@@ -122,7 +122,7 @@ public class MainEntry extends JPanel {
     }
 
     private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Excel处理器，4/Dec/2018版本，制作 by QQ:79836305有相关需求请联系为您制作");
+        JFrame frame = new JFrame("Excel处理器，22/May/2019版本，制作 by QQ:79836305有相关需求请联系为您制作");
         frame.setSize(700, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(new MainEntry());
